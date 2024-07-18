@@ -2,7 +2,7 @@ from hotels.domain.hotel import Hotel
 
 
 class GetHotelSerializer:
-    def serialize(self, hotel:Hotel) -> dict:
+    def serialize(self, hotel: Hotel) -> dict:
         return {
             "id": hotel.id,
             "hotel_name": hotel.hotel_name,
