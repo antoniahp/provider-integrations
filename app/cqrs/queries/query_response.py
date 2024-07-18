@@ -4,4 +4,4 @@ from typing import Optional
 
 @dataclass(frozen=True)
 class QueryResponse:
-    content:Optional[any]
+    content: Optional[any]
