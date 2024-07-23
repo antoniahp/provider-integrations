@@ -8,9 +8,9 @@ class Hotel(models.Model):
     provider_id = models.CharField(max_length=120)
     hotel_name = models.CharField(max_length=120)
     address = models.CharField(max_length=120)
-    rating = models.DecimalField(max_digits=10, decimal_places=10)
+    rating = models.DecimalField(max_digits=10, decimal_places=2)
     availability = models.IntegerField()
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=10)
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     city = models.CharField(max_length=120)
     amenity = models.ManyToManyField(Amenity)
 

@@ -16,15 +16,15 @@ class ImportHotelsProviderACommandHandler(CommandHandler):
         json_response = hotels_provider_a.json()
         # extraer objetos boteles de la respuesta del proveedor
         parsed_hotels = []
-        for hotel in json_response["data"]["hotels"]:
+        for hotel in json_response["hotels"]:
             parsed_hotels.append(
                 Hotel(
                 provider_id=hotel["id"],
-                hotel_name=hotel["label"],
-                address=hotel["address"],
-                rating=hotel["rating"],
-                availability=hotel["rooms_available"],
-                price_per_night=hotel["price_per_night"],
+                hotel_name=hotel["details"]["name"],
+                address=hotel["details"]["address"],
+                rating=hotel["details"]["rating"],
+                availability=hotel["availability"]["rooms_available"],
+                price_per_night=hotel["availability"]["price_per_night"],
                 city=""
             ))
 
