@@ -14,5 +14,5 @@ class Command(BaseCommand):
         self.__import_hotel_provider_a_command_handler = ImportHotelsProviderACommandHandler(hotel_repository=self.__db_hotel_repository)
 
     def handle(self, *args, **options):
-        command = ImportHotelsProviderACommand(provider_name="HotelBeds")
+        command = ImportHotelsProviderACommand()
         self.__import_hotel_provider_a_command_handler.handle(command)
