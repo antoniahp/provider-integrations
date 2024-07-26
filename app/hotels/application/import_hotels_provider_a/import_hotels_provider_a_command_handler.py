@@ -1,5 +1,7 @@
 from typing import Dict, List
 
+from django.db import transaction
+
 from cqrs.commands.command_handler import CommandHandler
 from hotels.application.import_hotels_provider_a.import_hotels_provider_a_comand import ImportHotelsProviderACommand
 from hotels.domain.exceptions.providers.could_not_extract_hotels_from_provider_response_exception import CouldNotExtracHotelsFromProviderResponseException
@@ -7,19 +9,28 @@ from hotels.domain.exceptions.providers.provider_http_status_code_exception impo
 from hotels.domain.exceptions.providers.provider_response_decode_error_exception import ProviderResponseDecodeErrorException
 from hotels.domain.exceptions.providers.provider_timeout_exception import ProviderTimeoutException
 from hotels.domain.hotel import Hotel
+from hotels.domain.hotel_creator import HotelCreator
 
 from hotels.domain.hotel_repository import HotelRepository
 import requests
 
 
 class ImportHotelsProviderACommandHandler(CommandHandler):
-    def __init__(self, hotel_repository: HotelRepository):
+    def __init__(self, hotel_repository: HotelRepository, hotel_creator:HotelCreator):
         self.hotel_repository = hotel_repository
+        self.hotel_creator = hotel_creator
 
     def handle(self, command: ImportHotelsProviderACommand):
+
+
+
         provider_response = self.__make_request_to_provider()
         hotels = self.__get_hotels_from_response(json_response=provider_response)
-        self.__save_hotels_to_repository_only_if_its_new(parsed_hotels=hotels)
+
+
+
+        with transaction.atomic():
+            self.__save_hotels_to_repository_only_if_its_new(parsed_hotels=hotels)
 
 
     def __make_request_to_provider(self) -> dict:
@@ -44,8 +55,7 @@ class ImportHotelsProviderACommandHandler(CommandHandler):
         parsed_hotels = []
         for hotel in json_response["hotels"]:
             try:
-                parsed_hotels.append(
-                    Hotel(
+                parsed_hotels.append(self.hotel_creator.create(
                     provider_id=hotel["id"],
                     hotel_name=hotel["details"]["name"],
                     address=hotel["details"]["address"],
