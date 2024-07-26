@@ -1,6 +1,6 @@
 from cqrs.queries.query_handler import QueryHandler
 from cqrs.queries.query_response import QueryResponse
-from hotels.application.get_hotel.get_hotel_query import GetHotelsQuery
+from hotels.application.get_hotels.get_hotels_query import GetHotelsQuery
 from hotels.domain.hotel_repository import HotelRepository
 
 

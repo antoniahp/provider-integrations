@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.views import View
 
-from hotels.application.get_hotel.get_hotel_query import GetHotelsQuery
-from hotels.application.get_hotel.get_hotel_query_handler import GetHotelsQueryHandler
+from hotels.application.get_hotels.get_hotels_query import GetHotelsQuery
+from hotels.application.get_hotels.get_hotels_query_handler import GetHotelsQueryHandler
 from hotels.infraestructure.db_hotel_repository import DbHotelRepository
 
 from hotels.infraestructure.views.get_hotels.get_hotel_serializer import GetHotelSerializer
