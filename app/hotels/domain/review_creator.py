@@ -6,7 +6,7 @@ from hotels.domain.review import Review
 
 
 class ReviewCreator:
-    def create(self, hotel_id: UUID, user_name:str, review:Decimal, title:str, text:str, published_at:date):
+    def create(self, hotel_id: UUID, user_name: str, review: Decimal, title: str, text: str, published_at: date):
         #Validaciones universales
         return Review(
             hotel_id=hotel_id,
