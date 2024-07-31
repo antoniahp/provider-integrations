@@ -4,6 +4,7 @@ from django.db import transaction
 
 from cqrs.commands.command_handler import CommandHandler
 from hotels.application.add_reviews.add_review_command import AddReviewCommand
+from hotels.domain.exceptions.hotel_by_name_not_found_exception import HotelByNameNotFoundException
 from hotels.domain.hotel_repository import HotelRepository
 from hotels.domain.review import Review
 from hotels.domain.review_creator import ReviewCreator
@@ -18,6 +19,8 @@ class AddReviewCommandHandler(CommandHandler):
 
     def handle(self, command: AddReviewCommand):
         filtered_hotels_by_name = self.hotel_repository.filter_hotels_by_name(hotel_name=command.hotel_name)
+        if len(filtered_hotels_by_name) == 0:
+            raise HotelByNameNotFoundException(hotel_name=command.hotel_name)
         for hotel in filtered_hotels_by_name:
             hotel_review = self.review_creator.create(
                 hotel_id=hotel.id,
@@ -33,8 +36,7 @@ class AddReviewCommandHandler(CommandHandler):
             hotel_reviews = self.review_repository.filter_by_hotel_id(hotel_id=hotel.id)
             hotel.rating = self.__calculate_means_of_opinions(hotel_reviews=hotel_reviews)
 
-            with transaction.atomic():
-                self.hotel_repository.save_hotel(hotel=hotel)
+            self.hotel_repository.save_hotel(hotel=hotel)
 
     def __calculate_means_of_opinions(self, hotel_reviews:Sequence[Review])-> float:
         hotel_puntuations = []
