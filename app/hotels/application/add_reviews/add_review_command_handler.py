@@ -1,10 +1,7 @@
-from decimal import Decimal
-from typing import Sequence, List
-from uuid import UUID
+from typing import Sequence
 
 from cqrs.commands.command_handler import CommandHandler
 from hotels.application.add_reviews.add_review_command import AddReviewCommand
-from hotels.domain.hotel import Hotel
 from hotels.domain.hotel_repository import HotelRepository
 from hotels.domain.review import Review
 from hotels.domain.review_creator import ReviewCreator
@@ -28,7 +25,6 @@ class AddReviewCommandHandler(CommandHandler):
                 text=command.text,
                 published_at=command.published_at
             )
-
 
             self.review_repository.save_review(review=hotel_review)
 
