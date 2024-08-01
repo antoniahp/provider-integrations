@@ -1,5 +1,0 @@
-ID,Name,Address,Rating,City,Amenities
-d777091c-3e73-4264-b21a-b8c0608d6a41,Central Park Inn,"456 Park Ave, New York, NY 10022",3.04,calvia,hotels.Amenity.None
-c303fdfa-2da7-48ea-b72e-3026fee142d5,Brooklyn Boutique Hotel,"101 Brooklyn Bridge Blvd, Brooklyn, NY 11201",5.20,manacor,hotels.Amenity.None
-4fcd1236-fe8d-48c2-895f-a29e54b4ce9b,The Grand Hotel,"123 Main Street, New York, NY 10001",3.20,barcelona,hotels.Amenity.None
-a49b4499-bc96-4fa9-b4e1-1ae2cf4e11d3,Times Square Hotel,"789 Broadway, New York, NY 10019",4.80,madrid,hotels.Amenity.None
