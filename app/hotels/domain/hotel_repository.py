@@ -1,8 +1,5 @@
 from abc import ABC, abstractmethod
-from decimal import Decimal
 from typing import Sequence
-
-from psycopg2._psycopg import Float
 
 from hotels.domain.hotel import Hotel
 
@@ -18,7 +15,7 @@ class HotelRepository(ABC):
 
 
     @abstractmethod
-    def filter_hotels_by_rating_gte(self, rating:Float) -> Sequence[Hotel]:
+    def filter_hotels_by_rating_gte(self, rating:float) -> Sequence[Hotel]:
         pass
 
 
