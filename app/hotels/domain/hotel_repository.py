@@ -15,7 +15,7 @@ class HotelRepository(ABC):
 
 
     @abstractmethod
-    def filter_hotels_by_rating_gte(self, rating:float) -> Sequence[Hotel]:
+    def filter_hotels_by_rating_gte(self, rating_gte:float) -> Sequence[Hotel]:
         pass
 
 
