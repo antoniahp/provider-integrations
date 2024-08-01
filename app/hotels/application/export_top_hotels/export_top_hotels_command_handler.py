@@ -17,16 +17,13 @@ class ExportTopHotelsCommandHandler(CommandHandler):
 
 
     def handle(self, command: ExportTopHotelsCommand):
-        # Obtener los hoteles
-        hotels = self.hotel_repository.get_all_hotels()
+        hotels = self.hotel_repository.filter_hotels_by_rating_gte(rating=3.0)
 
-        # Parsear hoteles
         csv_file_path = 'top_hotels.csv'
         with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
             csv_writer = csv.writer(csvfile, delimiter=',')
             csv_writer.writerow(['ID', 'Name', 'Address', 'Rating', 'City', 'Amenities'])
             for hotel in hotels:
-                if hotel.rating >= 3.0:
                     csv_writer.writerow([
                         hotel.id,
                         hotel.hotel_name,
