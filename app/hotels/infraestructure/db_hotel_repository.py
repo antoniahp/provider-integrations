@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Sequence
 
 from hotels.domain.hotel_repository import HotelRepository
@@ -10,6 +11,9 @@ class DbHotelRepository(HotelRepository):
 
     def filter_hotels_by_name(self, hotel_name: str) -> Sequence[Hotel]:
         return Hotel.objects.filter(hotel_name=hotel_name)
+
+    def filter_hotels_by_rating_gte(self, rating:Decimal) -> Sequence[Hotel]:
+        return Hotel.objects.filter(rating=rating)
 
     def save_hotel(self, hotel: Hotel) -> None:
         hotel.save()
