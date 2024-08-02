@@ -1,7 +1,4 @@
 from typing import Sequence
-
-from django.db import transaction
-
 from cqrs.commands.command_handler import CommandHandler
 from hotels.application.add_reviews.add_review_command import AddReviewCommand
 from hotels.domain.exceptions.hotel_by_name_not_found_exception import HotelByNameNotFoundException
@@ -23,6 +20,7 @@ class AddReviewCommandHandler(CommandHandler):
             raise HotelByNameNotFoundException(hotel_name=command.hotel_name)
         for hotel in filtered_hotels_by_name:
             hotel_review = self.review_creator.create(
+                review_uuid=command.review_uuid,
                 hotel_id=hotel.id,
                 user_name=command.user_name,
                 review=command.review,

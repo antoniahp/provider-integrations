@@ -1,8 +1,9 @@
 import json
-from datetime import date, datetime
+from datetime import datetime
 from decimal import Decimal
+from uuid import uuid4
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
@@ -26,7 +27,9 @@ class WebhookReviewsView(View):
 
     def post(self, request):
         data = json.loads(request.body)
+        review_uuid = uuid4()
         command = AddReviewCommand(
+            review_uuid=review_uuid,
             hotel_name=data.get("hotel_name"),
             user_name=data.get("user_name"),
             review=Decimal(data.get("review")),
@@ -35,4 +38,4 @@ class WebhookReviewsView(View):
             published_at=datetime.strptime(data.get("published_at"), "%Y-%m-%d").date()
         )
         self.__add_reviews_command_handler.handle(command)
-        return HttpResponse(status=201)
+        return JsonResponse({'review_uuid': str(review_uuid)}, status=201)
