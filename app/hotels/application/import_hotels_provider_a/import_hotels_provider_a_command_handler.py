@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 
 from django.db import transaction
 
@@ -21,13 +21,8 @@ class ImportHotelsProviderACommandHandler(CommandHandler):
         self.hotel_creator = hotel_creator
 
     def handle(self, command: ImportHotelsProviderACommand):
-
-
-
         provider_response = self.__make_request_to_provider()
         hotels = self.__get_hotels_from_response(json_response=provider_response)
-
-
 
         with transaction.atomic():
             self.__save_hotels_to_repository_only_if_its_new(parsed_hotels=hotels)
