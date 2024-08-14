@@ -55,7 +55,7 @@ class ImportHotelsProviderACommandHandler(CommandHandler):
                     hotel_name=hotel["details"]["name"],
                     address=hotel["details"]["address"],
                     rating=hotel["details"]["rating"],
-                    availability=hotel["availability"]["rooms_available"],
+                    availability=hotel["availability"]["rooms"],
                     price_per_night=hotel["availability"]["price_per_night"],
                     city=""
                 ))
